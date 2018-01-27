@@ -44,7 +44,7 @@ public class MedStudent {
 	public MedStudent (String name, String pref1) {
 		MedStudent x = new MedStudent ();
 		x.name = name;
-		x.pref1 = pref1;
+		x.pref1 = pref1; 
 	}
 	
 	
