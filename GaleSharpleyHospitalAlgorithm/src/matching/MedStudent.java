@@ -15,12 +15,12 @@ public class MedStudent {
 	public MedStudent () {
 		this.name = "John Doe null";
 		this.matchedSchool = "no match";
-		this.currentPref = 0;
+		this.currentPref = 1;
 		this.pref1 = "no match";
 		this.pref2 = "no match";
 		this.pref3 = "no match";
 		this.engaged = false;
-		this.NumOfStudents++;
+		NumOfStudents++;
 	}
 	
 	
@@ -47,9 +47,46 @@ public class MedStudent {
 		x.pref1 = pref1; 
 	}
 	
+	public boolean isMatched () {
+		return this.engaged;
+	}
 	
+	public String getSchoolPref () {
+		if (this.currentPref == 1) {
+			return this.pref1;
+		}
+		if (this.currentPref == 2) {
+			return this.pref2;
+		}
+		if (this.currentPref == 3) {
+			return this.pref3;
+		}
+		return "no preference";
+	}
 	
+	public int getCurrentPref () {
+		return this.currentPref;
+	}
 	
+	public void setCurrentPref (int pref) {
+		this.currentPref = pref;
+	}
+	
+	public void setMatched (boolean bool) {
+		this.engaged = bool;
+	}
+	
+	public void increasePref () {
+		this.currentPref++;
+	}
+	
+	public String getMatchedSchool () {
+		return this.matchedSchool;
+	}
+	
+	public void setMatchedSchool (String temp) {
+		this.matchedSchool = temp;
+	}
 	
 	
 }
