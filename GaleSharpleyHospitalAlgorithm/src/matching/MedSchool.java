@@ -16,6 +16,13 @@ public class MedSchool {
 	}
 	
 	
+	public MedSchool (String name, int maxNumber) {
+		this.NameOfSchool = name;
+		this.NumOfStudents = 0;
+		this.MaxNumOfStudents = maxNumber;
+		NumOfSchools++;
+	}
+	
 	public MedSchool (String name) {
 		MedSchool x = new MedSchool ();
 		x.NameOfSchool = name;
@@ -34,5 +41,11 @@ public class MedSchool {
 	
 	public void addStudent () {
 		this.NumOfStudents++;
+	}
+	
+	public void printSchoolInfo () {
+		System.out.print("School Name: " + this.NameOfSchool);
+		System.out.print(" Number of Students: " + this.NumOfStudents);
+		System.out.println(" Max Num of Students: " + this.MaxNumOfStudents);
 	}
 }

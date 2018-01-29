@@ -1,34 +1,159 @@
 package matching;
 
+import java.io.*;
+
 public class stableMatching {
 
 	public static void main (String[] args) {
-		// TODO Auto-generated method stub
-		MedStudent[] students = new MedStudent[100];
-		MedSchool[] schools = new MedSchool[10];
 		
-		fillArrays (students, schools);
+		MedStudent[] students;
+		MedSchool[] schools;
+		
+		students = fillStudentsArrays ("studentList.txt");
+		schools = fillSchoolsArrays ("schoolList.txt");
+		for (int i = 0; i < students.length; i++) {
+			students[i].printStudentInfo();
+		}
+		for (int i = 0; i < schools.length; i++) {
+			schools[i].printSchoolInfo();
+		}
+		
 		matchStudents (students, schools);
+		for (int i = 0; i < students.length; i++) {
+			students[i].printStudentInfo();
+		}
+		for (int i = 0; i < schools.length; i++) {
+			schools[i].printSchoolInfo();
+		}		
+		
 		writeMatchSheet (students, schools);
+		System.out.println("hey man");
 		
 	}
 	
 	
-	public static void fillArrays (MedStudent[] students, MedSchool[] schools) {
+	public static MedStudent[] fillStudentsArrays (String file) {
+		MedStudent[] temp;
+		String fileName = file;
+		String line = null;
+		String name = null;
+		String pref1 = null;
+		String pref2 = null;
+		String pref3 = null;
+		int counter = 0;
 		
+		try {
+			FileReader fileReader = new FileReader (fileName);
+			BufferedReader bufferedReader = new BufferedReader (fileReader);
+			if ((line = bufferedReader.readLine()) !=null) {
+				System.out.println(line);
+				temp = new MedStudent[Integer.parseInt(line)];
+			} else {
+				bufferedReader.close();
+				return new MedStudent[0];
+			}
+			while ((name = bufferedReader.readLine()) != null) {
+				pref1 = bufferedReader.readLine();
+				pref2 = bufferedReader.readLine();
+				pref3 = bufferedReader.readLine();
+				temp[counter] = new MedStudent(name, pref1, pref2, pref3);
+				counter++;
+			}
+			bufferedReader.close();
+		}
+		catch (FileNotFoundException ex) {
+			System.out.println( "Unable to open file '" + fileName + "'");
+			return new MedStudent[0];
+		}
+		catch (IOException ex) {
+			System.out.println( "Error reading file '" + fileName + "'");
+			return new MedStudent[0];
+		}
+		return temp;
 	}
+
+
+	public static MedSchool[] fillSchoolsArrays (String file) {
+		MedSchool[] temp;
+		String fileName = file;
+		String line = null;
+		String schoolName = null;
+		String numStudents = null;
+
+		int counter = 0;
+		
+		try {
+			FileReader fileReader = new FileReader (fileName);
+			BufferedReader bufferedReader = new BufferedReader (fileReader);
+			if ((line = bufferedReader.readLine()) !=null) {
+				System.out.println(line);
+				temp = new MedSchool[Integer.parseInt(line)];
+			} else {
+				bufferedReader.close();
+				return new MedSchool[0];
+			}
+			while ((schoolName = bufferedReader.readLine()) != null) {
+				numStudents = bufferedReader.readLine();
+				temp[counter] = new MedSchool(schoolName, Integer.parseInt(numStudents));
+				counter++;
+			}
+			bufferedReader.close();
+		}
+		catch (FileNotFoundException ex) {
+			System.out.println( "Unable to open file '" + fileName + "'");
+			return new MedSchool[0];
+		}
+		catch (IOException ex) {
+			System.out.println( "Error reading file '" + fileName + "'");
+			return new MedSchool[0];
+		}
+		return temp;
+	}
+
 	
+	//public static void 
 	
 	public static void writeMatchSheet (MedStudent[] students, MedSchool[] schools) {
-		
+        // The name of the file to open.
+        String fileName = "temp2.txt";
+
+        try {
+            // Assume default encoding.
+            FileWriter fileWriter =
+                new FileWriter(fileName);
+
+            // Always wrap FileWriter in BufferedWriter.
+            BufferedWriter bufferedWriter =
+                new BufferedWriter(fileWriter);
+
+            // Note that write() does not automatically
+            // append a newline character.
+            bufferedWriter.write("Hello there,");
+            bufferedWriter.write(" here is some text.");
+            bufferedWriter.newLine();
+            bufferedWriter.write("We are writing");
+            bufferedWriter.write(" the text to the file.");
+
+            // Always close files.
+            bufferedWriter.close();
+        }
+        catch(IOException ex) {
+            System.out.println(
+                "Error writing to file '"
+                + fileName + "'");
+            // Or we could just do this:
+            // ex.printStackTrace();
+        }
 	}
 	
 	
 	public static void matchStudents (MedStudent[] students, MedSchool[] schools) {
 		
 		int counter = studentsUnmatched(students);
-		
-		while (0 < counter && emptySchoolSlots(schools)) {
+		System.out.println("153");
+		System.out.println(counter);
+		while (0 <= counter && emptySchoolSlots(schools)) {
+			System.out.println("154");
 			if (students[counter].getCurrentPref() >3 ) {
 				students[counter].setMatched(true);
 				students[counter].setMatchedSchool("no matches tobad");
@@ -39,7 +164,7 @@ public class stableMatching {
 				addStudentToSchool(students[counter].getSchoolPref(), schools);
 			}
 			//if the school is full before i move to next level I need to see who else is in the school
-			//if this student has a higher pref then anothter student remove them and add this one
+			//if this student has a higher pref then another student remove them and add this one
 			else if (isPrefHigher(students[counter].getSchoolPref(), students[counter].getCurrentPref(), students)) {
 				students[counter].setMatched(true);
 				students[counter].setMatchedSchool(students[counter].getSchoolPref());
@@ -71,7 +196,7 @@ public class stableMatching {
 	public static boolean emptySchoolSlots(MedSchool[] schools) {
 		for (int i = 0; i < schools.length; i++) {
 			if (schools[i].isFull()) {
-				return false;
+				return true;
 			}
 		}
 		return true;
@@ -104,6 +229,6 @@ public class stableMatching {
 				schools[i].addStudent();
 			}
 		}
-		
 	}
+	
 }
