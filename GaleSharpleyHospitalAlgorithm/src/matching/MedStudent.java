@@ -4,13 +4,13 @@ public class MedStudent {
 
 	private int NumOfStudents=0;
 	
-	public String name;
-	public String matchedSchool;
-	public int currentPref;
-	public String pref1;
-	public String pref2;
-	public String pref3;
-	public boolean engaged;
+	private String name;
+	private String matchedSchool;
+	private int currentPref;
+	private String pref1;
+	private String pref2;
+	private String pref3;
+	private boolean engaged;
 	
 	public MedStudent () {
 		this.name = "John Doe null ";
@@ -50,10 +50,18 @@ public class MedStudent {
 		x.pref1 = pref1; 
 	}
 	
+	/**
+	 * Check to see if student has been currently been accepted.
+	 * @return true if is currently matched with a school.
+	 */
 	public boolean isMatched () {
 		return this.engaged;
 	}
 	
+	/**
+	 * Checks the students preferred list and get the most preferred school.
+	 * @return Most preferred school still available.
+	 */
 	public String getSchoolPref () {
 		if (this.currentPref == 1) {
 			return this.pref1;
@@ -71,26 +79,51 @@ public class MedStudent {
 		return this.currentPref;
 	}
 	
+	/**
+	 * 
+	 * @param pref
+	 */
 	public void setCurrentPref (int pref) {
 		this.currentPref = pref;
 	}
 	
+	/**
+	 * Checks to see if the student has currently been accepted.
+	 * @param bool Return true if student is matched to a school.
+	 */
 	public void setMatched (boolean bool) {
 		this.engaged = bool;
 	}
 	
+	/**
+	 * Sets the current preference of to the next school.
+	 */
 	public void increasePref () {
 		this.currentPref++;
 	}
 	
+	
+	/**
+	 * Get the name of school that accepted student.
+	 * @return Name of school.
+	 */
 	public String getMatchedSchool () {
 		return this.matchedSchool;
 	}
 	
+	
+	/**
+	 * Sets the student to the accepted school.
+	 * @param Name of school that accepted student.
+	 */
 	public void setMatchedSchool (String temp) {
 		this.matchedSchool = temp;
 	}
 	
+	/**
+	 * Prints all the information about a student:
+	 * Name, preferred Schools, matched schools, and current preference.
+	 */
 	public void printStudentInfo () {
 		System.out.print("name: " + this.name);
 		System.out.print(" matched school: " + this.matchedSchool);

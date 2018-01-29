@@ -11,6 +11,7 @@ public class stableMatching {
 		
 		students = fillStudentsArrays ("studentList.txt");
 		schools = fillSchoolsArrays ("schoolList.txt");
+		
 		for (int i = 0; i < students.length; i++) {
 			students[i].printStudentInfo();
 		}
@@ -19,6 +20,7 @@ public class stableMatching {
 		}
 		
 		matchStudents (students, schools);
+		
 		for (int i = 0; i < students.length; i++) {
 			students[i].printStudentInfo();
 		}
@@ -27,11 +29,16 @@ public class stableMatching {
 		}		
 		
 		writeMatchSheet (students, schools);
-		System.out.println("hey man");
+		
+		System.out.println("Finished");
 		
 	}
 	
-	
+	/**
+	 * Reads the file and creates and array of Medical Students (MedStudent).
+	 * @param file Name of file containing all students and their preferences.
+	 * @return An array of MedStudent. 
+	 */
 	public static MedStudent[] fillStudentsArrays (String file) {
 		MedStudent[] temp;
 		String fileName = file;
@@ -72,7 +79,11 @@ public class stableMatching {
 		return temp;
 	}
 
-
+	/**
+	 * Reads the file and creates and array of University.
+	 * @param file Name of file containing all Universities and total open students.
+	 * @return An array of MedSchools.
+	 */
 	public static MedSchool[] fillSchoolsArrays (String file) {
 		MedSchool[] temp;
 		String fileName = file;
@@ -111,8 +122,12 @@ public class stableMatching {
 	}
 
 	
-	//public static void 
 	
+	/**
+	 * NOT FINISHED, need to decide how to display/write matches
+	 * @param students
+	 * @param schools
+	 */
 	public static void writeMatchSheet (MedStudent[] students, MedSchool[] schools) {
         // The name of the file to open.
         String fileName = "temp2.txt";
@@ -147,13 +162,16 @@ public class stableMatching {
 	}
 	
 	
+	/**
+	 * 	
+	 * @param students
+	 * @param schools
+	 */
 	public static void matchStudents (MedStudent[] students, MedSchool[] schools) {
 		
 		int counter = studentsUnmatched(students);
-		System.out.println("153");
 		System.out.println(counter);
-		while (0 <= counter && emptySchoolSlots(schools)) {
-			System.out.println("154");
+		while (0 <= counter && schools[0].allSlotsFilled()) {
 			if (students[counter].getCurrentPref() >3 ) {
 				students[counter].setMatched(true);
 				students[counter].setMatchedSchool("no matches tobad");
@@ -178,7 +196,13 @@ public class stableMatching {
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * @param preferedSchool
+	 * @param priority
+	 * @param students
+	 * @return
+	 */
 	public static boolean isPrefHigher(String preferedSchool, int priority, MedStudent[] students) {
 		for (int i = 0; i < students.length; i++) {
 			if (preferedSchool.equals(students[i].getMatchedSchool())) {
@@ -192,7 +216,11 @@ public class stableMatching {
 		return false;
 	}
 	
-	
+	/**
+	 * 
+	 * @param schools
+	 * @return
+	 */
 	public static boolean emptySchoolSlots(MedSchool[] schools) {
 		for (int i = 0; i < schools.length; i++) {
 			if (schools[i].isFull()) {
@@ -202,7 +230,11 @@ public class stableMatching {
 		return true;
 	}
 	
-	
+	/**
+	 * 
+	 * @param students
+	 * @return
+	 */
 	public static int studentsUnmatched (MedStudent[] students) {
 		for (int i = 0; i < students.length; i++) {
 			if (!students[i].isMatched()) {
@@ -212,7 +244,12 @@ public class stableMatching {
 		return -1;
 	}
 	
-	
+	/**
+	 * 
+	 * @param school
+	 * @param schools
+	 * @return
+	 */
 	public static boolean isSchoolEmpty (String school, MedSchool[] schools) {
 		for (int i = 0;  i < schools.length; i++) {
 			if (school.equals(schools[i].getName())) {
@@ -222,7 +259,11 @@ public class stableMatching {
 		return false;
 	}
 	
-	
+	/**
+	 * 
+	 * @param school
+	 * @param schools
+	 */
 	public static void addStudentToSchool (String school, MedSchool[] schools) {
 		for (int i = 0; i < schools.length; i++) {
 			if (school.equals(schools[i].getName())) {
