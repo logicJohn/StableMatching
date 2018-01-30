@@ -197,8 +197,8 @@ public class stableMatching {
 	}
 	
 	/**
-	 * 
-	 * @param preferedSchool
+	 * Check to see if any other students to a to a school have a lower priority.
+	 * @param preferedSchool Name of the med school
 	 * @param priority
 	 * @param students
 	 * @return
@@ -216,24 +216,11 @@ public class stableMatching {
 		return false;
 	}
 	
-	/**
-	 * 
-	 * @param schools
-	 * @return
-	 */
-	public static boolean emptySchoolSlots(MedSchool[] schools) {
-		for (int i = 0; i < schools.length; i++) {
-			if (schools[i].isFull()) {
-				return true;
-			}
-		}
-		return true;
-	}
 	
 	/**
-	 * 
-	 * @param students
-	 * @return
+	 * Searches all med students to find one who has not been accepted for school 
+	 * @param students Array of all med students.
+	 * @return The position of the first unmatched student.
 	 */
 	public static int studentsUnmatched (MedStudent[] students) {
 		for (int i = 0; i < students.length; i++) {
@@ -243,12 +230,26 @@ public class stableMatching {
 		}
 		return -1;
 	}
+
 	
 	/**
-	 * 
-	 * @param school
-	 * @param schools
-	 * @return
+	 * Adds accepted student count to the university.
+	 * @param school Name of school student matched to.
+	 * @param schools Array of all schools.
+	 */
+	public static void addStudentToSchool (String school, MedSchool[] schools) {
+		for (int i = 0; i < schools.length; i++) {
+			if (school.equals(schools[i].getName())) {
+				schools[i].addStudent();
+			}
+		}
+	}
+	
+	/**
+	 * Checks to see if a school is still accepting students.
+	 * @param school Name of school to check.
+	 * @param schools Array of all med schools.
+	 * @return return true if school has open slots.
 	 */
 	public static boolean isSchoolEmpty (String school, MedSchool[] schools) {
 		for (int i = 0;  i < schools.length; i++) {
@@ -257,19 +258,6 @@ public class stableMatching {
 			}
 		}
 		return false;
-	}
-	
-	/**
-	 * 
-	 * @param school
-	 * @param schools
-	 */
-	public static void addStudentToSchool (String school, MedSchool[] schools) {
-		for (int i = 0; i < schools.length; i++) {
-			if (school.equals(schools[i].getName())) {
-				schools[i].addStudent();
-			}
-		}
 	}
 	
 }
